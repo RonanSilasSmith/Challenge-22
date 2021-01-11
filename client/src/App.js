@@ -18,15 +18,17 @@ import OrderHistory from "./pages/OrderHistory";
 
 
 //tagging this for later
-import { StoreProvider } from "./utils/GlobalState";
+// Below is the DEAFAULT CODE. revert back to this if things aren't working
+//import { StoreProvider } from "./utils/GlobalState";
 
 //adds redux stuff
-//import { render } from 'react-dom'
-//import { Provider } from 'react-redux'
-//import { createStore } from 'redux'
-//import rootReducer from './reducers'
-//import App from './components/App'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import reducer from './utils/reducers'
+const store = createStore(reducer)
 //
+
+
 
 
 
@@ -45,9 +47,10 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      <Provider store={store}>
       <Router>
         <div>
-          <StoreProvider>
+          {/* <StoreProvider> */}
             <Nav />
             <Switch>
               <Route exact path="/" component={Home} />
@@ -58,9 +61,10 @@ function App() {
               <Route exact path="/products/:id" component={Detail} />
               <Route component={NoMatch} />
             </Switch>
-          </StoreProvider>
+          {/* </StoreProvider> */}
         </div>
       </Router>
+      </Provider>
     </ApolloProvider>
 
   );
